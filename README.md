@@ -26,7 +26,7 @@ Things you may want to cover:
 
 
 
-## userテーブル
+## usersテーブル
 
 | Column                 | Type   | Options     |
 | -----------------------| ------ | ------------|
@@ -47,7 +47,7 @@ Things you may want to cover:
  
 
 
- ## itemテーブル
+ ## itemsテーブル
 
 | Column                 | Type       | Options                       |
 | -----------------------| -----------| ------------------------------|
@@ -68,11 +68,11 @@ Things you may want to cover:
 <!-- イメージはアクティブイメージで作成 -->
 
 
-## addressテーブル
+## addressesテーブル
 
 | Column          | Type       | Options                         |
 | ----------------| -----------| --------------------------------|
-| pastal-code     | integer    | null: false                     |
+| postal-code     | integer    | null: false                     |
 | prefecture      | text       | null: false                     |
 | city            | string     | null: false                     |
 | addresses       | string     | null: false                     |
@@ -85,17 +85,11 @@ Things you may want to cover:
 ### Association
 - belong_to :user
 
-## cardテーブル
+## cardsテーブル
 
 | Column          | Type       | Options                         |
 | ----------------| -----------| --------------------------------|
-| number     | integer    | null: false                     |
-| exp-month      | text       | null: false                     |
-| city            | string     | null: false                     |
-| addresses       | string     | null: false                     |
-| building        | string     | null: false                     | 
-| phone-number    | integer    | null: false                     |
-| user            | references | null: false, foreign_key: true  |
+| price           | integer    | null: false                     |
 
 
 
