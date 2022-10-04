@@ -98,4 +98,4 @@ Things you may want to cover:
 - has_one :address
 - belong_to :user
 - belong_to :item
-
+ 
