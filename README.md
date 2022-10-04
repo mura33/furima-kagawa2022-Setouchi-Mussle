@@ -31,18 +31,17 @@ Things you may want to cover:
 | Column                 | Type   | Options     |
 | -----------------------| ------ | ------------|
 | nickname               | string | null: false |
-| email                  | string | null: false |
-| password               | string | null: false |
-| password_confirmation  | string | null: false |
+| email                  | string | unique:true |
+| encrypted_password     | string | null: false |
 | last_name              | string | null: false |
 | first_name             | string | null: false |
 | last_name_kana         | string | null: false |
 | first_name_kana        | string | null: false |
-| birth_date             | string | null: false |
+| birth_date             | date   | null: false |
 
 ### Association
 - has_many :items
-- has_many :orders
+- belongs_to :orders
  
 
 
@@ -73,11 +72,10 @@ Things you may want to cover:
 | Column          | Type       | Options                         |
 | ----------------| -----------| --------------------------------|
 | postal_code     | string     | null: false                     |
-| prefecture      | text       | null: false                     |
 | city            | string     | null: false                     |
 | addresses       | string     | null: false                     |
-| building        | string     | null: false                     | 
-| phone_number    | integer    | null: false                     |
+| building        | string     | null: true                      | 
+| phone_number    | string     | null: false                     |
 | order           | references | null: false, foreign_key: true  |
 
 
