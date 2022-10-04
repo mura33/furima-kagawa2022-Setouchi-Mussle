@@ -61,7 +61,7 @@ Things you may want to cover:
 
 
 ### Association
-- belongs_to :order
+- has_one :order
 - belongs_to :user
 
 <!-- イメージはアクティブイメージで作成 -->
