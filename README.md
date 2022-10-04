@@ -48,16 +48,16 @@ Things you may want to cover:
 
  ## itemsテーブル
 
-| Column                 | Type          | Options                       |
-| -----------------------| --------------| ------------------------------|
-| name                   | string        | null: false                   |
-| info                   | text          | null: false                   |
-| price                  | integer       | null: false                   |
-| category_id            | string        | null: false                   |  
-| sales_status_id        | string        | null: false                   |  
-| shipping_fee_status_id | string        | null: false                   | 
-| prefecture_id          | string        | null: false                   | 
-| scheduled_delivery_id  | string        | null: false                   |
+| Column                 | Type           | Options                       |
+| -----------------------| -------------- | ------------------------------|
+| name                   | string         | null: false                   |
+| info                   | text           | null: false                   |
+| price                  | integer        | null: false                   |
+| category_id            | integer        | null: false                   |  
+| sales_status_id        | integer        | null: false                   |  
+| shipping_fee_status_id | integer        | null: false                   | 
+| prefecture_id          | integer        | null: false                   | 
+| scheduled_delivery_id  | integer        | null: false                   |
 | user                   | references    | null: false, foreign_key: true|
 
 
@@ -72,12 +72,12 @@ Things you may want to cover:
 
 | Column          | Type       | Options                         |
 | ----------------| -----------| --------------------------------|
-| postal_code     | integer    | null: false                     |
+| postal_code     | string     | null: false                     |
 | prefecture      | text       | null: false                     |
 | city            | string     | null: false                     |
 | addresses       | string     | null: false                     |
 | building        | string     | null: false                     | 
-| phone_number    | integer    | null: false                     |
+| phone_number    | string     | null: false                     |
 | order           | references | null: false, foreign_key: true  |
 
 
