@@ -42,27 +42,27 @@ Things you may want to cover:
 
 ### Association
 - has_many :items
-- has_many :cards
 - has_many :addresses
  
 
 
  ## itemsテーブル
 
-| Column                 | Type       | Options                       |
-| -----------------------| -----------| ------------------------------|
-| name                   | string     | null: false                   |
-| info                   | text       | null: false                   |
-| category               | string     | null: false                   |
-| sales-status           | string     | null: false                   |
-| shipping-fee-status    | string     | null: false                   | 
-| prefecture             | string     | null: false                   |
-| scheduled-delivery     | string     | null: false                   |
-| price                  | integer    | null: false                   |
-| user                   | references |null: false, foreign_key: true |
+| Column                 | Type          | Options                       |
+| -----------------------| --------------| ------------------------------|
+| name                   | string        | null: false                   |
+| info                   | text          | null: false                   |
+| price                  | integer       | null: false                   |
+| category               | string        | null: false                   |  
+| sales-status           | string        | null: false                   |  
+| shipping-fee-status    | string        | null: false                   | 
+| prefecture             | string        | null: false                   | 
+| scheduled-delivery     | string        | null: false                   |
+| user                   | references    | null: false, foreign_key: true|
 
 
 ### Association
+- has_one :sold-out
 - belong_to :user
 
 <!-- イメージはアクティブイメージで作成 -->
@@ -85,13 +85,21 @@ Things you may want to cover:
 ### Association
 - belong_to :user
 
-## cardsテーブル
+## sold-outsテーブル
 
-| Column          | Type       | Options                         |
-| ----------------| -----------| --------------------------------|
-| price           | integer    | null: false                     |
 
+| Column                 | Type          | Options                       |
+| -----------------------| --------------| ------------------------------|
+| name                   | string        | null: false                   |
+| info                   | text          | null: false                   |
+| price                  | integer       | null: false                   |
+| category               | string        | null: false                   |  
+| sales-status           | string        | null: false                   |  
+| shipping-fee-status    | string        | null: false                   | 
+| prefecture             | string        | null: false                   | 
+| scheduled-delivery     | string        | null: false                   |
+| user                   | references    | null: false, foreign_key: true|
 
 
 ### Association
-- belong_to :user
+- belong_to :item
