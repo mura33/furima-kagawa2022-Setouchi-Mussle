@@ -34,15 +34,15 @@ Things you may want to cover:
 | email                  | string | null: false |
 | password               | string | null: false |
 | password_confirmation  | string | null: false |
-| last-name              | string | null: false |
-| first-name             | string | null: false |
-| last-name-kana         | string | null: false |
-| first-name-kana        | string | null: false |
-| birth-date             | string | null: false |
+| last_name              | string | null: false |
+| first_name             | string | null: false |
+| last_name_kana         | string | null: false |
+| first_name_kana        | string | null: false |
+| birth_date             | string | null: false |
 
 ### Association
 - has_many :items
-- has_many :addresses
+- has_many :orders
  
 
 
@@ -53,16 +53,16 @@ Things you may want to cover:
 | name                   | string        | null: false                   |
 | info                   | text          | null: false                   |
 | price                  | integer       | null: false                   |
-| category               | string        | null: false                   |  
-| sales-status           | string        | null: false                   |  
-| shipping-fee-status    | string        | null: false                   | 
-| prefecture             | string        | null: false                   | 
-| scheduled-delivery     | string        | null: false                   |
+| category_id            | string        | null: false                   |  
+| sales_status_id        | string        | null: false                   |  
+| shipping_fee_status_id | string        | null: false                   | 
+| prefecture_id          | string        | null: false                   | 
+| scheduled_delivery_id  | string        | null: false                   |
 | user                   | references    | null: false, foreign_key: true|
 
 
 ### Association
-- has_one :sold-out
+- has_many :orders
 - belong_to :user
 
 <!-- イメージはアクティブイメージで作成 -->
@@ -72,34 +72,30 @@ Things you may want to cover:
 
 | Column          | Type       | Options                         |
 | ----------------| -----------| --------------------------------|
-| postal-code     | integer    | null: false                     |
+| postal_code     | integer    | null: false                     |
 | prefecture      | text       | null: false                     |
 | city            | string     | null: false                     |
 | addresses       | string     | null: false                     |
 | building        | string     | null: false                     | 
-| phone-number    | integer    | null: false                     |
-| user            | references | null: false, foreign_key: true  |
+| phone_number    | integer    | null: false                     |
+| order           | references | null: false, foreign_key: true  |
 
 
 
 ### Association
-- belong_to :user
+- belong_to :order
 
-## sold-outsテーブル
+## ordersテーブル
 
 
 | Column                 | Type          | Options                       |
 | -----------------------| --------------| ------------------------------|
-| name                   | string        | null: false                   |
-| info                   | text          | null: false                   |
-| price                  | integer       | null: false                   |
-| category               | string        | null: false                   |  
-| sales-status           | string        | null: false                   |  
-| shipping-fee-status    | string        | null: false                   | 
-| prefecture             | string        | null: false                   | 
-| scheduled-delivery     | string        | null: false                   |
 | user                   | references    | null: false, foreign_key: true|
+| item                   | references    | null: false, foreign_key: true|
 
 
 ### Association
+- has_one :address
+- belong_to :user
 - belong_to :item
+
