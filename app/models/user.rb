@@ -11,14 +11,15 @@ class User < ApplicationRecord
     validates :first_name
   end
 
-  PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
+  PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
   validates_format_of :password, with: PASSWORD_REGEX
-   
-  with_options presence: true, format: { with: /\A[\p{katakana} ー－&&[^ -~｡-ﾟ]]+\z/, message: 'Input full-width katakana characters' } do
+
+  with_options presence: true,
+               format: { with: /\A[\p{katakana} ー－&&[^ -~｡-ﾟ]]+\z/,
+                         message: 'Input full-width katakana characters' } do
     validates :last_name_kana
     validates :first_name_kana
   end
 
   validates :birth_date, presence: true
-  
 end
