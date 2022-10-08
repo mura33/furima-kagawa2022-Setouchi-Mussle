@@ -1,125 +1,77 @@
+require 'rails_helper'
+
+# RSpec.describe Item, type: :model do
+#   pending "add some examples to (or delete) #{__FILE__}"
+# end
+
 RSpec.describe Item, type: :model do
   before do
     @item = FactoryBot.build(:item)
   end
 
-  describe 'ユーザー新規登録' do
-    context '新規登録できるとき' do
-      it 'nicknameとemail,passwordとpassword_confirmation,last_name,first_name,last_name_kana,first_name_kana,birth_dateが存在すれば登録できる' do
-        expect(@user).to be_valid
+  describe '商品出品' do
+    context '商品出品できるとき' do
+      it 'name, info, price, category_id, sales_status_id, shipping_fee_status_id, prefecture_id, scheduled_delivery_idが存在すれば登録できる' do
+        expect(@item).to be_valid
       end
     end
-    context '新規登録できないとき' do
-      it 'nicknameが空では登録できない' do
-        @user.nickname = ''
-        @user.valid?
-        expect(@user.errors.full_messages).to include("Nickname can't be blank")
+    context '商品出品できないとき' do
+      it 'nameが空では登録できない' do
+        @item.name = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Name can't be blank")
       end
-      it 'emailが空では登録できない' do
-        @user.email = ''
-        @user.valid?
-        expect(@user.errors.full_messages).to include("Email can't be blank")
+      it 'infoが空では登録できない' do
+        @item.info = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Info can't be blank")
       end
-      it 'passwordが空では登録できない' do
-        @user.password = ''
-        @user.valid?
-        expect(@user.errors.full_messages).to include("Password can't be blank")
+      it 'priceが空では登録できない' do
+        @item.price = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price can't be blank")
       end
-      it 'passwordとpassword_confirmationが不一致では登録できない' do
-        @user.password = '123456'
-        @user.password_confirmation = '1234567'
-        @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      it 'category_idが１では登録できない' do
+        @item.category_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category can't be blank")
       end
-      it '重複したemailが存在する場合は登録できない' do
-        @user.save
-        another_user = FactoryBot.build(:user)
-        another_user.email = @user.email
-        another_user.valid?
-        expect(another_user.errors.full_messages).to include('Email has already been taken')
+      it 'sales_status_idが１では登録できない' do
+        @item.sales_status_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Sales status can't be blank")
       end
-      it 'emailは＠を含まないと登録できない' do
-        @user.email = 'testmail'
-        @user.valid?
-        expect(@user.errors.full_messages).to include('Email is invalid')
+      it 'shipping_fee_status_idが１では登録できない' do
+        @item.shipping_fee_status_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shipping fee status can't be blank")
       end
-      it 'passwordが５文字以下では登録できない' do
-        @user.password = '00000'
-        @user.password_confirmation = '00000'
-        @user.valid?
-        expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
+      it 'prefecture_idが0では登録できない' do
+        @item.prefecture_id = '0'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end
-      it 'passwordが129文字以上では登録できない' do
-        @user.password = Faker::Internet.password(min_length: 129)
-        @user.password_confirmation = @user.password
-        @user.valid?
-        expect(@user.errors.full_messages).to include('Password is too long (maximum is 128 characters)')
+      it 'scheduled_delivery_idが1では登録できない' do
+        @item.scheduled_delivery_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Scheduled delivery can't be blank")
       end
-      it '英字のみのpasswordでは登録できない' do
-        @user.password = 'aaaaaa'
-        @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      it 'priceが300円以下では登録できない' do
+        @item.price = '299'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price must be greater than or equal to 300')
       end
-      it '数字のみのpasswordでは登録できない' do
-        @user.password = '111111'
-        @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      it 'priceが9,999,999円以上では登録できない' do
+        @item.price = '10000000'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
       end
-      it '全角文字を含むpasswordでは登録できない' do
-        @user.password = 'ああああああ'
-        @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
-      end
-      it 'お名前（姓）が全角以外では登録できない' do
-        @user.last_name = 'a1-'
-        @user.valid?
-        expect(@user.errors.full_messages).to include('Last name Input full-width characters')
-      end
-
-      it 'お名前（姓）全角が空では登録できない' do
-        @user.last_name = ''
-        @user.valid?
-        expect(@user.errors.full_messages).to include("Last name can't be blank")
-      end
-      it 'お名前（名）全角が空では登録できない' do
-        @user.first_name = ''
-        @user.valid?
-        expect(@user.errors.full_messages).to include("First name can't be blank")
-      end
-
-      it 'お名前カナ（姓）全角が空では登録できない' do
-        @user.last_name_kana = ''
-        @user.valid?
-        expect(@user.errors.full_messages).to include("Last name kana can't be blank")
-      end
-      it 'お名前カナ（名）全角が空では登録できない' do
-        @user.first_name_kana = ''
-        @user.valid?
-        expect(@user.errors.full_messages).to include("First name kana can't be blank")
-      end
-
-      it 'お名前（名）が全角以外では登録できない' do
-        @user.first_name = 'a1-'
-        @user.valid?
-        expect(@user.errors.full_messages).to include('First name Input full-width characters')
-      end
-      it 'お名前カナ（姓）が全角以外では登録できない' do
-        @user.last_name_kana = 'a1-'
-        @user.valid?
-        expect(@user.errors.full_messages).to include('Last name kana Input full-width katakana characters')
-      end
-      it 'お名前カナ（名）が全角以外では登録できない' do
-        @user.first_name_kana = 'a1-'
-        @user.valid?
-        expect(@user.errors.full_messages).to include('First name kana Input full-width katakana characters')
-      end
-      it '生年月日が空では登録できない' do
-        @user.birth_date = ''
-        @user.valid?
-        expect(@user.errors.full_messages).to include("Birth date can't be blank")
+      it '値段が半角数字以外では登録できない' do
+        @item.price = '５００'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is not a number')
       end
     end
   end
-  #  pending "add some examples to (or delete) #{__FILE__}"
 end
 
