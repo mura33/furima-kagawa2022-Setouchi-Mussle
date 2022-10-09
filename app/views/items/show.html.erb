@@ -23,8 +23,7 @@
       </span>
     </div>
 
-    <%# ログインしているユーザーと出品しているユーザーが、同一人物の場合と同一人物ではない場合で、処理を分けましょう %>
-    <%# <% if user_signed_in? && current_user.id == @item.user_id %> 
+
     <% if user_signed_in? %>
        <% if current_user.id == @item.user_id %>
         <%= link_to "商品の編集", "#", method: :get, class: "item-red-btn" %>
@@ -38,7 +37,6 @@
     <% end %>
 
 
-    <%# //ログインしているユーザーと出品しているユーザーが、同一人物の場合と同一人物ではない場合で、処理を分けましょう %>
 
     <div class="item-explain-box">
       <span><%= @item.info %></span>
