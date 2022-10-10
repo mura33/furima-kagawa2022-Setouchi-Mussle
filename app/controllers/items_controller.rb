@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
   before_action :user_not, only: [:edit]
 
   def index
-    @items = Item.includes(:user).order("created_at DESC")
+    @items = Item.includes(:user).order('created_at DESC')
   end
 
   def new
@@ -31,13 +31,11 @@ class ItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
     if @item.update(item_params)
-      redirect_to  item_path(@item)
+      redirect_to item_path(@item)
     else
       render :edit
     end
   end
-
-
 
   private
 
@@ -48,15 +46,10 @@ class ItemsController < ApplicationController
 
   def user_not
     @item = Item.find(params[:id])
-     unless @item.user_id == current_user.id
-     redirect_to action: :index
-     end
+    redirect_to action: :index unless @item.user_id == current_user.id
   end
 
   def move_to_index
-    unless user_signed_in? 
-      redirect_to  new_user_session_path
-    end
+    redirect_to new_user_session_path unless user_signed_in?
   end
-
 end
