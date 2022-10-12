@@ -1,6 +1,8 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :destroy]
-  before_action :set_item, only: [:show, :destroy]
+  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
+   before_action :set_item, only: [:show, :destroy, :edit, :update]
+   before_action :user_not, only: [:show, :edit, :update]
+
 
   def index
     @items = Item.includes(:user).order('created_at DESC')
@@ -22,6 +24,18 @@ class ItemsController < ApplicationController
   def show
   end
 
+
+  def edit
+  end
+
+  def update
+    if @item.update(item_params)
+      redirect_to item_path(@item)
+    else
+      render :edit
+    end
+  end
+
   def destroy
     if current_user == @item.user
       @item.destroy
@@ -38,7 +52,12 @@ class ItemsController < ApplicationController
                                  :scheduled_delivery_id, :shipping_fee_status_id).merge(user_id: current_user.id)
   end
 
+  def user_not
+    redirect_to action: :index unless @item.user_id == current_user.id
+  end
+
   def set_item
     @item = Item.find(params[:id])
   end
+
 end
