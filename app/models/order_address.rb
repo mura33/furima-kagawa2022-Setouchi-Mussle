@@ -8,7 +8,7 @@ class OrderAddress
       validates :prefecture_id, numericality: { other_than: 0}
       validates :city    
       validates :addresses
-      validates :token, presence: true
+      validates :token
   end    
 
   validates :order_id, presence: true
