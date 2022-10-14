@@ -8,11 +8,11 @@
     </h2>
     <div class="item-img-content">
       <%= link_to image_tag(@item.image,class: "item-box-img"), item_path(@item.id) %>
-      <%# 商品が売れている場合は、sold outを表示しましょう %>
+      <% if  @item.order.present?  %>
       <div class="sold-out">
         <span>Sold Out!!</span>
       </div>
-      <%# //商品が売れている場合は、sold outを表示しましょう %>
+      <% end%>
     </div>
     <div class="item-price-box">
       <span class="item-price">
