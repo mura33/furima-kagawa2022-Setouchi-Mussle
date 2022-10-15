@@ -1,26 +1,25 @@
 class OrderAddress
-
   include ActiveModel::Model
-  attr_accessor :prefecture_id,:postal_code,:city,:addresses,:phone_number,:building,
-                :user_id,:item_id,:token,:address_id
+  attr_accessor :prefecture_id, :postal_code, :city, :addresses, :phone_number, :building,
+                :user_id, :item_id, :token, :address_id
 
-  with_options presence:{  message: "can't be blank" } do
-      validates :prefecture_id, numericality: { other_than: 0}
-      validates :city    
-      validates :addresses
-      validates :token
-  end    
+  with_options presence: { message: "can't be blank" } do
+    validates :prefecture_id, numericality: { other_than: 0 }
+    validates :city
+    validates :addresses
+    validates :token
+    validates :postal_code, format: { with: /\A\d{3}-\d{4}\z/,
+                                      message: 'no hyphens are included' }
+    validates :phone_number, format: { with: /\A\d{10}$|^\d{11}\z/,
+                                       message: 'hyphens are included' }
+  end
 
   validates :item_id, presence: true
   validates :user_id, presence: true
-  validates :postal_code,format: { with:/\A\d{3}[-]\d{4}\z/, 
-                                  message:"No hyphens are included."}
-  validates :phone_number,format: { with: /\A\d{10}$|^\d{11}\z/, 
-                                  message:"No hyphens are included"}                      
 
   def save
-    order = Order.create(user_id: user_id,item_id: item_id)
-    Address.create(postal_code: postal_code, prefecture_id: prefecture_id, city: city, addresses: addresses, building: building, phone_number: phone_number,order_id: order.id)
+    order = Order.create(user_id: user_id, item_id: item_id)
+    Address.create(postal_code: postal_code, prefecture_id: prefecture_id, city: city, addresses: addresses, building: building,
+                   phone_number: phone_number, order_id: order.id)
   end
-
 end
