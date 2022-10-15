@@ -24,16 +24,13 @@
     </div>
 
 
-    <% if user_signed_in? %>
-       <% if current_user.id == @item.user_id %>
-          <%  @item.order.present? %>
+    <% if user_signed_in? && @item.order == nil%>
+       <% if current_user == @item.user %>
           <%= link_to "商品の編集", edit_item_path, method: :get, class: "item-red-btn" %>
           <p class="or-text">or</p>
           <%= link_to "削除", item_path(@item.id), method: :delete, class:"item-destroy" %>
           <%else %>
-        <% unless  @item.order.present? %>
         <%= link_to "購入画面に進む", item_orders_path(@item.id) ,class:"item-red-btn"%>
-        <% end%>
       <% end %>
     <% end %>
 
