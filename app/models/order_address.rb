@@ -1,7 +1,7 @@
 class OrderAddress
   include ActiveModel::Model
   attr_accessor :prefecture_id, :postal_code, :city, :addresses, :phone_number, :building,
-                :user_id, :item_id, :token, :address_id
+                :user_id, :item_id, :token
 
   with_options presence: { message: "can't be blank" } do
     validates :prefecture_id, numericality: { other_than: 0 }
@@ -10,12 +10,13 @@ class OrderAddress
     validates :token
     validates :postal_code, format: { with: /\A\d{3}-\d{4}\z/,
                                       message: 'no hyphens are included' }
-    validates :phone_number, format: { with: /\A\d{10}$|^\d{11}\z/,
-                                       message: 'hyphens are included' }
+    validates :phone_number, format: { with: /\A\d{10}$|^\d{11}\z/}
   end
 
-  validates :item_id, presence: true
-  validates :user_id, presence: true
+  with_options presence:true do
+    validates :item_id
+    validates :user_id
+  end
 
   def save
     order = Order.create(user_id: user_id, item_id: item_id)
