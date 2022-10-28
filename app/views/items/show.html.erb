@@ -7,7 +7,14 @@
       <%= @item.name %>
     </h2>
     <div class="item-img-content">
-      <%= link_to image_tag(@item.image,class: "item-box-img"), item_path(@item.id) %>
+      <%= link_to image_tag(@item.images[0],class: "item-box-img"), item_path(@item.id) %>
+      <div class="other-images">
+        <% @item.images[1..-1].each do |image| %>
+          <div class="other-image">
+            <%= image_tag image %>
+          </div>
+        <%end%>
+      </div>
       <% if  @item.order.present?  %>
       <div class="sold-out">
         <span>Sold Out!!</span>
