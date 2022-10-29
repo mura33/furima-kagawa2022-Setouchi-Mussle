@@ -205,3 +205,30 @@
   font-weight: bold;
   font-size: 23px;
 }
+
+.other-images {
+  height: 50px;
+  width: 50px;
+  display: contents;
+}
+
+.other-image {
+  margin-right: 10px;
+  
+}
+.image-delete-button {
+  text-align: center;
+  border: solid 1px;
+  cursor: pointer;
+  width: 50px
+}
+
+.main-image {
+  height: 200px;
+  width: 200px;
+}
+
+.img-file{
+  height: 150px;
+  width: 150px;
+}

@@ -11,7 +11,7 @@
       <div class="other-images">
         <% @item.images[1..-1].each do |image| %>
           <div class="other-image">
-            <%= image_tag image %>
+            <%= image_tag image,class:"img-file" %>
           </div>
         <%end%>
       </div>
