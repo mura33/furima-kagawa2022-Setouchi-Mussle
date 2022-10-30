@@ -1,7 +1,7 @@
 class Item < ApplicationRecord
   belongs_to :user
   has_one :order
-  has_one_attached :image
+  has_many_attached :images
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
@@ -10,7 +10,9 @@ class Item < ApplicationRecord
   belongs_to :scheduled_delivery
   belongs_to :shipping_fee_status
 
-  validates :image, :name, :info, presence: true
+  validates :images, :name, :info, presence: true
+  validates :images, length: { minimum: 1, maximum: 5, message: "は1枚以上5枚以下にしてください" }
+
 
   validates :category_id, numericality: { other_than: 1, message: "can't be blank" }
   validates :prefecture_id, numericality: { other_than: 0, message: "can't be blank" }
