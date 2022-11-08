@@ -3,13 +3,13 @@ class OrderAddress
   attr_accessor :prefecture_id, :postal_code, :city, :addresses, :phone_number, :building,
                 :user_id, :item_id, :token
 
-  with_options presence: { message: "can't be blank" } do
+  with_options presence: { message: "を入力してください" } do
     validates :prefecture_id, numericality: { other_than: 0 }
     validates :city
     validates :addresses
     validates :token
     validates :postal_code, format: { with: /\A\d{3}-\d{4}\z/,
-                                      message: 'no hyphens are included' }
+                                      message: 'ハイフンは入れないでください' }
     validates :phone_number, format: { with: /\A\d{10}$|^\d{11}\z/}
     validates :item_id
     validates :user_id
