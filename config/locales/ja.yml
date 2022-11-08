@@ -1,0 +1,33 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        nickname: ニックネーム
+        last_name: 名前（性）
+        first_name: 名前（名）
+        last_name_kana: 名前カナ（性）
+        first_name_kana: 名前カナ（名）
+        birth_date: 生年月日
+        input_full-width_characters: は全角文字で入力してください
+
+      item:
+        name: 商品名
+        info: 商品の説明
+        category_id: カテゴリー
+        prefecture_id: 発送元の地域
+        sales_status_id: 商品の状態
+        scheduled_delivery_id: 発送までの日数
+        shipping_fee_status_id: 配送料の負担
+        price: 価格
+        images: 画像
+
+  activemodel:
+    attributes:
+      order_address:
+        prefecture_id: 都道府県
+        city: 市区町村
+        addresses: 番地
+        building: 建物名
+        phone_number: 電話番号
+        token: カード情報
+        postal_code: 郵便番号
