@@ -9,7 +9,7 @@ class OrderAddress
     validates :addresses
     validates :token
     validates :postal_code, format: { with: /\A\d{3}-\d{4}\z/,
-                                      message: 'ハイフンは入れないでください' }
+                                      message: 'はハイフンを入力してください' }
     validates :phone_number, format: { with: /\A\d{10}$|^\d{11}\z/}
     validates :item_id
     validates :user_id
