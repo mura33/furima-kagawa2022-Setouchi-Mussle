@@ -31,10 +31,8 @@
     </div>
     <%# /支払額の表示 %>
 
-    <%#=render 'shared/error_messages', model: f.object %>
-   
-    
     <%= form_with model:@order_address,url: item_orders_path, class: 'transaction-form-wrap',local: true do |f| %>
+    <%=render 'shared/error_messages', model: f.object %>
     <%# 配送先の入力 %>
     <div class='shipping-address-form'>
       <h1 class='info-input-haedline'>
