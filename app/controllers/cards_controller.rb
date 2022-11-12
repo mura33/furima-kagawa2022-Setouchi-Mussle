@@ -6,7 +6,7 @@ class CardsController < ApplicationController
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"] # 環境変数を読み込む
     customer = Payjp::Customer.create(
       description: 'test', # テストカードであることを説明
-      card: params[:card_token]
+      card: params[:card_token] # 登録しようとしているカード情報
     )
       card = Card.new( # 顧客トークンとログインしているユーザーを紐付けるインスタンスを生成
         card_token: params[:card_token],  #カード情報
@@ -18,14 +18,5 @@ class CardsController < ApplicationController
       else
         redirect_to action: "new" # カード登録画面へリダイレクト
       end
-  end
-
-
-  private
-
-  def pay_item
-    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
-    Payjp::Charge.create(
-    )
   end
 end
