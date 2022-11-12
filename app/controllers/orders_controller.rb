@@ -11,7 +11,6 @@ class OrdersController < ApplicationController
 
   def create
     redirect_to new_card_path and return unless current_user.card.present?
-
     @order_address = OrderAddress.new(order_address_params)
     if @order_address.valid?
       pay_item
@@ -30,7 +29,7 @@ class OrdersController < ApplicationController
 
   def order_address_params
     params.require(:order_address).permit(:postal_code, :prefecture_id, :city, :addresses, :phone_number, :building).merge(
-      token: params[:token],user_id: current_user.id, item_id: @item.id
+      token: current_user.card.customer_token, user_id: current_user.id, item_id: @item.id
     )
   end
 
