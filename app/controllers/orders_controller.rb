@@ -3,6 +3,7 @@ class OrdersController < ApplicationController
   before_action :set_item, only: [:index, :create]
 
   def index
+    redirect_to new_card_path and return unless current_user.card.present?
     @order_address = OrderAddress.new
     if @item.user_id == current_user.id || @item.order
       redirect_to root_path 
@@ -10,7 +11,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    redirect_to new_card_path and return unless current_user.card.present?
+    
     @order_address = OrderAddress.new(order_address_params)
     if @order_address.valid?
       pay_item
