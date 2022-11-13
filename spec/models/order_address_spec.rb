@@ -7,7 +7,7 @@ RSpec.describe OrderAddress, type: :model do
     @order_address = FactoryBot.build(:order_address, user_id: @user.id, item_id: @item.id)
   end
 
-  describe 'クレジット情報、住所の記入' do
+  describe '住所の記入' do
     context '内容に問題がない場合' do
       it 'すべての値が正常に登録されていれば保存できる' do
         expect(@order_address).to be_valid
@@ -78,12 +78,6 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.phone_number = '090-1111-111111'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include('電話番号は不正な値です')
-      end
-
-      it 'tokenが空では登録できない' do
-        @order_address.token = ''
-        @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("カード情報を入力してください")
       end
 
       it 'user_idが空では登録できない' do

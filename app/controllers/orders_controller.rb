@@ -3,6 +3,7 @@ class OrdersController < ApplicationController
   before_action :set_item, only: [:index, :create]
 
   def index
+    redirect_to new_card_path and return unless current_user.card.present?
     @order_address = OrderAddress.new
     if @item.user_id == current_user.id || @item.order
       redirect_to root_path 
@@ -10,6 +11,7 @@ class OrdersController < ApplicationController
   end
 
   def create
+    
     @order_address = OrderAddress.new(order_address_params)
     if @order_address.valid?
       pay_item
@@ -28,15 +30,17 @@ class OrdersController < ApplicationController
 
   def order_address_params
     params.require(:order_address).permit(:postal_code, :prefecture_id, :city, :addresses, :phone_number, :building).merge(
-      token: params[:token], user_id: current_user.id, item_id: @item.id
+      token: current_user.card.customer_token, user_id: current_user.id, item_id: @item.id
     )
   end
 
   def pay_item
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
+    customer_token = current_user.card.customer_token # ログインしているユーザーの顧客トークンを定義
     Payjp::Charge.create(
       amount: @item.price,
-      card: order_address_params[:token],
+      customer: customer_token, # 顧客のトークン
+      # card: order_address_params[:token],
       currency: 'jpy'
     )
   end
